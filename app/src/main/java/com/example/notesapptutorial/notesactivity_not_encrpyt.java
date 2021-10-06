@@ -105,7 +105,6 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
                         intent.putExtra("title",firebasemodel.getTitle());
                         intent.putExtra("content",firebasemodel.getContent());
                         intent.putExtra("noteId",docId);
-
                         v.getContext().startActivity(intent);
 
                        // Toast.makeText(getApplicationContext(),"This is Clicked",Toast.LENGTH_SHORT).show();
@@ -123,10 +122,12 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
 
-                                Intent intent=new Intent(v.getContext(), editnoteactivity_not_encrpyt.class);
+                                Intent intent=new Intent(v.getContext(), editnoteactivity.class);
                                 intent.putExtra("title",firebasemodel.getTitle());
                                 intent.putExtra("content",firebasemodel.getContent());
                                 intent.putExtra("noteId",docId);
+                                intent.putExtra("isEncrypted",false);
+                                finish();
                                 v.getContext().startActivity(intent);
                                 return false;
                             }

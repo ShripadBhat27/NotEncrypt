@@ -91,7 +91,7 @@ public class notesActivity_encrpyt extends AppCompatActivity {
                 noteViewHolder.mnote.setBackgroundColor(noteViewHolder.itemView.getResources().getColor(colourcode,null));
 
                 noteViewHolder.notetitle.setText(firebasemodel.getTitle());
-                noteViewHolder.notecontent.setText(firebasemodel.getContent());
+                noteViewHolder.notecontent.setText("This data is Encrypted");
 
                 String docId=noteAdapter.getSnapshots().getSnapshot(i).getId();
 
@@ -123,10 +123,12 @@ public class notesActivity_encrpyt extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
 
-                                Intent intent=new Intent(v.getContext(), editnoteactivity_not_encrpyt.class);
+                                Intent intent=new Intent(v.getContext(), editnoteactivity.class);
                                 intent.putExtra("title",firebasemodel.getTitle());
                                 intent.putExtra("content",firebasemodel.getContent());
                                 intent.putExtra("noteId",docId);
+                                intent.putExtra("isEncrypted",true);
+                                finish();
                                 v.getContext().startActivity(intent);
                                 return false;
                             }
@@ -136,7 +138,7 @@ public class notesActivity_encrpyt extends AppCompatActivity {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 //Toast.makeText(v.getContext(),"This note is deleted",Toast.LENGTH_SHORT).show();
-                                DocumentReference documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Not Encrpyt").document(docId);
+                                DocumentReference documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Encrpyt").document(docId);
                                 documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {

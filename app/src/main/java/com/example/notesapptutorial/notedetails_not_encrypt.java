@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,10 +36,11 @@ public class notedetails_not_encrypt extends AppCompatActivity {
         mgotoeditnote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(), editnoteactivity_not_encrpyt.class);
+                Intent intent=new Intent(v.getContext(), editnoteactivity.class);
                 intent.putExtra("title",data.getStringExtra("title"));
                 intent.putExtra("content",data.getStringExtra("content"));
                 intent.putExtra("noteId",data.getStringExtra("noteId"));
+                finish();
                 v.getContext().startActivity(intent);
             }
         });

@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class editnoteactivity_not_encrpyt extends AppCompatActivity {
+public class editnoteactivity extends AppCompatActivity {
 
     Intent data;
     EditText medittitleofnote,meditcontentofnote;
@@ -37,12 +37,14 @@ public class editnoteactivity_not_encrpyt extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editnoteactivity_not_encypt);
+        setContentView(R.layout.activity_editnoteactivity);
         medittitleofnote=findViewById(R.id.edittitleofnote);
         meditcontentofnote=findViewById(R.id.editcontentofnote);
         msaveeditnote=findViewById(R.id.saveeditnote);
 
         data=getIntent();
+
+        boolean isEncrypted=data.getBooleanExtra("isEncrypted",false);
 
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
@@ -69,7 +71,11 @@ public class editnoteactivity_not_encrpyt extends AppCompatActivity {
                 }
                 else
                 {
-                    DocumentReference documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Not Encrpyt").document(data.getStringExtra("noteId"));
+                    DocumentReference documentReference;
+                    if(isEncrypted==false)
+                        documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Not Encrpyt").document(data.getStringExtra("noteId"));
+                    else
+                        documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Encrpyt").document(data.getStringExtra("noteId"));
                     Map<String,Object> note=new HashMap<>();
                     note.put("title",newtitle);
                     note.put("content",newcontent);
@@ -77,7 +83,12 @@ public class editnoteactivity_not_encrpyt extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getApplicationContext(),"Note is updated",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(editnoteactivity_not_encrpyt.this, notesactivity_not_encrpyt.class));
+                            finish();
+                            if(isEncrypted==false)
+                                startActivity(new Intent(editnoteactivity.this, notesactivity_not_encrpyt.class));
+                            else
+                                startActivity(new Intent(editnoteactivity.this, notesActivity_encrpyt.class));
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

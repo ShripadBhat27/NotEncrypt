@@ -58,7 +58,7 @@ public class createnote extends AppCompatActivity {
         if(isEncrypted==0)
              documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Not Encrpyt").document();
         else
-            documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection(" Encrpyt").document();
+            documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Encrpyt").document();
         msavenote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
