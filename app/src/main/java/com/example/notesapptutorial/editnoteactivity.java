@@ -83,7 +83,6 @@ public class editnoteactivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getApplicationContext(),"Note is updated",Toast.LENGTH_SHORT).show();
-                            finish();
                             if(isEncrypted==false)
                                 startActivity(new Intent(editnoteactivity.this, notesactivity_not_encrpyt.class));
                             else
