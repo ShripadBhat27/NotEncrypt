@@ -68,7 +68,7 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(notesactivity_not_encrpyt.this, createnote.class);
-                i.putExtra("isEncryprted",0);
+                i.putExtra("isEncryprted",false);
                 startActivity(i);
 
             }

@@ -68,10 +68,8 @@ public class notesActivity_encrpyt extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(notesActivity_encrpyt.this, createnote.class);
-                i.putExtra("isEncryprted",1);
-
+                i.putExtra("isEncryprted",true);
                 startActivity(i);
-
             }
         });
 
@@ -101,11 +99,12 @@ public class notesActivity_encrpyt extends AppCompatActivity {
                         //we have to open note detail activity
 
 
-                        Intent intent=new Intent(v.getContext(), notedetails_not_encrypt.class);
+                        Intent intent=new Intent(v.getContext(),notedetails_encrypt.class);
+
                         intent.putExtra("title",firebasemodel.getTitle());
                         intent.putExtra("content",firebasemodel.getContent());
                         intent.putExtra("noteId",docId);
-
+                        intent.putExtra("isEncrypted",true);
                         v.getContext().startActivity(intent);
 
                         // Toast.makeText(getApplicationContext(),"This is Clicked",Toast.LENGTH_SHORT).show();

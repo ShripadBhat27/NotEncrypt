@@ -40,7 +40,7 @@ public class createnote extends AppCompatActivity {
         setContentView(R.layout.activity_createnote);
 
         Intent i=getIntent();
-        int isEncrypted=i.getIntExtra("isEncryprted",0);
+        boolean isEncrypted=i.getBooleanExtra("isEncryprted",false);
 
         msavenote=findViewById(R.id.savenote);
         mcreatecontentofnote=findViewById(R.id.createcontentofnote);
@@ -55,7 +55,7 @@ public class createnote extends AppCompatActivity {
         firebaseFirestore=FirebaseFirestore.getInstance();
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference documentReference;
-        if(isEncrypted==0)
+        if(isEncrypted==false)
              documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Not Encrpyt").document();
         else
             documentReference=firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Encrpyt").document();
@@ -81,9 +81,9 @@ public class createnote extends AppCompatActivity {
                     documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(),"Note Created Succesffuly",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Note Created Successfully",Toast.LENGTH_SHORT).show();
                             finish();
-                            if(isEncrypted==0)
+                            if(isEncrypted==false)
                             startActivity(new Intent(createnote.this, notesactivity_not_encrpyt.class));
                             else
                                 startActivity(new Intent(createnote.this, notesActivity_encrpyt.class));

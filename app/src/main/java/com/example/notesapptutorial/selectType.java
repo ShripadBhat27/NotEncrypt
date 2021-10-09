@@ -51,7 +51,7 @@ public class selectType extends AppCompatActivity {
         });
         // creating a variable for our promptInfo
         // BIOMETRIC DIALOG
-        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("Note Encrpyt")
+        final BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder().setTitle("NOTEncrpyt")
                 .setDescription("Use your fingerprint to Authenticate ").setNegativeButtonText("Cancel").build();
 
 
