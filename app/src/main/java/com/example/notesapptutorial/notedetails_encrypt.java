@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.Calendar;
 import java.util.concurrent.Executor;
@@ -24,7 +25,7 @@ public class notedetails_encrypt extends AppCompatActivity {
 
     private TextView mtitleofnotedetail2,mcontentofnotedetail2;
     FloatingActionButton mgotoeditnote2;
-    ImageView status;
+    ShapeableImageView status;
     Calendar c;
     int flag=0;
 
@@ -41,27 +42,6 @@ public class notedetails_encrypt extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent data=getIntent();
-
-        mgotoeditnote2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(), editnoteactivity.class);
-                intent.putExtra("title",data.getStringExtra("title"));
-                intent.putExtra("content",data.getStringExtra("content"));
-                intent.putExtra("noteId",data.getStringExtra("noteId"));
-                intent.putExtra("isEncrypted",true);
-                finish();
-                v.getContext().startActivity(intent);
-
-                /*Intent intent=new Intent(v.getContext(), editnoteactivity.class);
-                intent.putExtra("title",firebasemodel.getTitle());
-                intent.putExtra("content",firebasemodel.getContent());
-                intent.putExtra("noteId",docId);
-                intent.putExtra("isEncrypted",true);
-                finish();
-                v.getContext().startActivity(intent);*/
-            }
-        });
         c=Calendar.getInstance();
         int shift=c.get(Calendar.SECOND);
         String fullcontent=data.getStringExtra("content");
@@ -84,17 +64,9 @@ public class notedetails_encrypt extends AppCompatActivity {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                if(flag==0) {
-                    mcontentofnotedetail2.setText(data.getStringExtra("content"));
-                    status.setImageDrawable(getResources().getDrawable(R.drawable.encryptlabel));
-                    flag=1;
-                }
-                else{
-                    mcontentofnotedetail2.setText(enccontent);
-                    status.setImageDrawable(getResources().getDrawable(R.drawable.decryptlabel));
-                    flag=0;
-                }
-
+                mcontentofnotedetail2.setText(data.getStringExtra("content"));
+                status.setImageDrawable(getResources().getDrawable(R.drawable.encryptlabel));
+                flag = 1;
             }
             @Override
             public void onAuthenticationFailed() {
@@ -109,7 +81,33 @@ public class notedetails_encrypt extends AppCompatActivity {
         status.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                biometricPrompt.authenticate(promptInfo);
+                if(flag==0){
+                    biometricPrompt.authenticate(promptInfo);
+                }
+                else{
+                    mcontentofnotedetail2.setText(enccontent);
+                    status.setImageDrawable(getResources().getDrawable(R.drawable.decryptlabel));
+                    flag=0;
+                }
+
+            }
+        });
+
+        mgotoeditnote2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(flag==0){
+                    Toast.makeText(getApplicationContext(),"Please decrypt the note first",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent=new Intent(v.getContext(), editnoteactivity.class);
+                intent.putExtra("title",data.getStringExtra("title"));
+                intent.putExtra("content",data.getStringExtra("content"));
+                intent.putExtra("noteId",data.getStringExtra("noteId"));
+                intent.putExtra("isEncrypted",true);
+                finish();
+                v.getContext().startActivity(intent);
+
             }
         });
 

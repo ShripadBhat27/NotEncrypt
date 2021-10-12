@@ -45,7 +45,7 @@
 
         android:id="@+id/gotoeditencnote"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="124dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
@@ -53,21 +53,26 @@
         android:layout_marginBottom="30dp"
         android:background="#A1F4FB"
         android:src="@drawable/ic_baseline_edit_24"
-        app:maxImageSize="40dp"
-
-        >
+        app:maxImageSize="50dp"
+        tools:ignore="SpeakableTextPresentCheck">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/status"
         android:layout_width="106dp"
         android:layout_height="118dp"
+        android:elevation="10dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|end"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="30dp"
-        app:srcCompat="@drawable/decryptlabel" />
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.SelectedCornerRadius"
+        app:srcCompat="@drawable/decryptlabel"
+        tools:ignore="MissingClass" />
 
 
 </RelativeLayout>

@@ -41,9 +41,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome Back !"
+            android:text="Welcome!!!"
+            android:fontFamily="@font/autour_one"
             android:textSize="42sp"
-            android:textColor="#FFBD4D"
+            android:textColor="#E91E63"
             android:textStyle="bold">
 
         </TextView>
@@ -52,8 +53,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log In To Continue"
+            android:fontFamily="@font/autour_one"
             android:textSize="23sp"
-            android:textColor="#FF8596">
+            android:textColor="#8BC34A"
+            android:textStyle="bold">
 
         </TextView>
 
@@ -100,27 +103,25 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-
     <RelativeLayout
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/button_design"
         android:layout_below="@id/password"
-        android:id="@+id/login">
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/button_design">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp"
-            android:textSize="16sp"
-            android:text="Log In"
             android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:text="Log In"
             android:textColor="@color/white"
-            ></TextView>
+            android:textSize="16sp"
+            android:textStyle="bold"></TextView>
 
     </RelativeLayout>
 
@@ -138,25 +139,24 @@
         ></TextView>
 
     <RelativeLayout
+        android:id="@+id/gotosignup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/button_design"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/gotosignup">
+        android:background="@drawable/button_design">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginStart="8dp"
-            android:textSize="16sp"
-            android:text="New User! Want To Sign In ?"
             android:layout_centerInParent="true"
+            android:layout_marginStart="8dp"
+            android:text="New User? Sign Up Here!"
             android:textColor="@color/white"
-            ></TextView>
+            android:textSize="16sp"
+            android:textStyle="bold"></TextView>
 
     </RelativeLayout>
 
