@@ -73,6 +73,22 @@
                 
             </TextView>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/notedate"
+
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="This is your date which appear here"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                android:textColor="@color/black">
+
+            </TextView>
+
 
         </LinearLayout>
 

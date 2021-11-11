@@ -42,12 +42,11 @@ public class notedetails_encrypt extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent data=getIntent();
-        c=Calendar.getInstance();
-        int shift=c.get(Calendar.SECOND);
-        String fullcontent=data.getStringExtra("content");
-        StringBuffer enccontent=encrypt(fullcontent,shift);
-        mcontentofnotedetail2.setText(enccontent);
-        //mcontentofnotedetail2.setText(data.getStringExtra("content"));
+        int dd=data.getIntExtra("dd",0);
+        int mm=data.getIntExtra("mm",0);
+        int yyyy=data.getIntExtra("yyyy",0);
+        String content=data.getStringExtra("content");
+        mcontentofnotedetail2.setText(content);
         mtitleofnotedetail2.setText(data.getStringExtra("title"));
 
 
@@ -64,7 +63,7 @@ public class notedetails_encrypt extends AppCompatActivity {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                mcontentofnotedetail2.setText(data.getStringExtra("content"));
+                mcontentofnotedetail2.setText(decrypt(content,dd+mm+yyyy+content.length()));
                 status.setImageDrawable(getResources().getDrawable(R.drawable.encryptlabel));
                 flag = 1;
             }
@@ -85,7 +84,7 @@ public class notedetails_encrypt extends AppCompatActivity {
                     biometricPrompt.authenticate(promptInfo);
                 }
                 else{
-                    mcontentofnotedetail2.setText(enccontent);
+                    mcontentofnotedetail2.setText(data.getStringExtra("content"));
                     status.setImageDrawable(getResources().getDrawable(R.drawable.decryptlabel));
                     flag=0;
                 }
@@ -103,6 +102,9 @@ public class notedetails_encrypt extends AppCompatActivity {
                 Intent intent=new Intent(v.getContext(), editnoteactivity.class);
                 intent.putExtra("title",data.getStringExtra("title"));
                 intent.putExtra("content",data.getStringExtra("content"));
+                intent.putExtra("dd",data.getIntExtra("dd",0));
+                intent.putExtra("mm",data.getIntExtra("mm",0));
+                intent.putExtra("yyyy",data.getIntExtra("yyyy",0));
                 intent.putExtra("noteId",data.getStringExtra("noteId"));
                 intent.putExtra("isEncrypted",true);
                 finish();
@@ -114,18 +116,26 @@ public class notedetails_encrypt extends AppCompatActivity {
 
     }
 
-    public StringBuffer encrypt(String text, int s) {
-        StringBuffer result = new StringBuffer();
-        for (int i = 0; i < text.length(); i++) {
-            if (Character.isUpperCase(text.charAt(i))) {
-                char ch = (char) (((int) text.charAt(i) +
-                        s - 65) % 26 + 65);
-                result.append(ch);
-            } else {
-                char ch = (char) (((int) text.charAt(i) +
-                        s - 97) % 26 + 97);
-                result.append(ch);
+    public static String decrypt(String s, int jump)
+    {
+        String result=new String();
+        int l = s.length();
+        jump %= 93;
+        for (int i = 0; i < l; i++)
+        {
+            if (s.charAt(i)>=33&&s.charAt(i)<=126)
+            {
+                int t = s.charAt(i) - jump;
+                if (t < 33)
+                {
+                    t = 33 - t;
+                    t = 126 - t;
+                }
+                result += (char)t;
             }
+            else
+                result+=s.charAt(i);
+
         }
         return result;
     }

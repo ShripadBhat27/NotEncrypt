@@ -62,7 +62,7 @@ public class notesActivity_encrpyt extends AppCompatActivity {
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore=FirebaseFirestore.getInstance();
 
-        getSupportActionBar().setTitle("All  Encrypted Notes");
+        getSupportActionBar().setTitle("All Encrypted Notes");
 
         mcreatenotesfab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,9 +87,15 @@ public class notesActivity_encrpyt extends AppCompatActivity {
 
                 int colourcode=getRandomColor();
                 noteViewHolder.mnote.setBackgroundColor(noteViewHolder.itemView.getResources().getColor(colourcode,null));
+                int dd=firebasemodel.getDd();
+                int mm=firebasemodel.getMm();
+                int yyyy=firebasemodel.getYyyy();
+                String date=dd+"-"+mm+"-"+yyyy;
+                String content=firebasemodel.getContent();
 
                 noteViewHolder.notetitle.setText(firebasemodel.getTitle());
-                noteViewHolder.notecontent.setText("This data is Encrypted");
+                noteViewHolder.notecontent.setText(firebasemodel.getContent());
+                noteViewHolder.notedate.setText(date);
 
                 String docId=noteAdapter.getSnapshots().getSnapshot(i).getId();
 
@@ -103,6 +109,9 @@ public class notesActivity_encrpyt extends AppCompatActivity {
 
                         intent.putExtra("title",firebasemodel.getTitle());
                         intent.putExtra("content",firebasemodel.getContent());
+                        intent.putExtra("dd",firebasemodel.getDd());
+                        intent.putExtra("mm",firebasemodel.getMm());
+                        intent.putExtra("yyyy",firebasemodel.getYyyy());
                         intent.putExtra("noteId",docId);
                         intent.putExtra("isEncrypted",true);
                         v.getContext().startActivity(intent);
@@ -125,6 +134,9 @@ public class notesActivity_encrpyt extends AppCompatActivity {
                                 Intent intent=new Intent(v.getContext(), editnoteactivity.class);
                                 intent.putExtra("title",firebasemodel.getTitle());
                                 intent.putExtra("content",firebasemodel.getContent());
+                                intent.putExtra("dd",firebasemodel.getDd());
+                                intent.putExtra("mm",firebasemodel.getMm());
+                                intent.putExtra("yyyy",firebasemodel.getYyyy());
                                 intent.putExtra("noteId",docId);
                                 intent.putExtra("isEncrypted",true);
                                 finish();
@@ -184,12 +196,14 @@ public class notesActivity_encrpyt extends AppCompatActivity {
     {
         private TextView notetitle;
         private TextView notecontent;
+        private TextView notedate;
         LinearLayout mnote;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             notetitle=itemView.findViewById(R.id.notetitle);
             notecontent=itemView.findViewById(R.id.notecontent);
+            notedate=itemView.findViewById(R.id.notedate);
             mnote=itemView.findViewById(R.id.note);
 
 

@@ -89,10 +89,15 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
 
                 int colourcode=getRandomColor();
                 noteViewHolder.mnote.setBackgroundColor(noteViewHolder.itemView.getResources().getColor(colourcode,null));
+                int dd=firebasemodel.getDd();
+                int mm=firebasemodel.getMm();
+                int yyyy=firebasemodel.getYyyy();
+                String date=dd+"-"+mm+"-"+yyyy;
+                String content=firebasemodel.getContent();
 
                 noteViewHolder.notetitle.setText(firebasemodel.getTitle());
-                noteViewHolder.notecontent.setText(firebasemodel.getContent());
-
+                noteViewHolder.notecontent.setText(decrypt(content,dd+mm+yyyy+content.length()));
+                noteViewHolder.notedate.setText(date);
                 String docId=noteAdapter.getSnapshots().getSnapshot(i).getId();
 
                 noteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +109,9 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
                         Intent intent=new Intent(v.getContext(), notedetails_not_encrypt.class);
                         intent.putExtra("title",firebasemodel.getTitle());
                         intent.putExtra("content",firebasemodel.getContent());
+                        intent.putExtra("dd",firebasemodel.getDd());
+                        intent.putExtra("mm",firebasemodel.getMm());
+                        intent.putExtra("yyyy",firebasemodel.getYyyy());
                         intent.putExtra("noteId",docId);
                         v.getContext().startActivity(intent);
 
@@ -125,6 +133,9 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
                                 Intent intent=new Intent(v.getContext(), editnoteactivity.class);
                                 intent.putExtra("title",firebasemodel.getTitle());
                                 intent.putExtra("content",firebasemodel.getContent());
+                                intent.putExtra("dd",firebasemodel.getDd());
+                                intent.putExtra("mm",firebasemodel.getMm());
+                                intent.putExtra("yyyy",firebasemodel.getYyyy());
                                 intent.putExtra("noteId",docId);
                                 intent.putExtra("isEncrypted",false);
                                 finish();
@@ -184,12 +195,14 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
     {
         private TextView notetitle;
         private TextView notecontent;
+        private TextView notedate;
         LinearLayout mnote;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             notetitle=itemView.findViewById(R.id.notetitle);
             notecontent=itemView.findViewById(R.id.notecontent);
+            notedate=itemView.findViewById(R.id.notedate);
             mnote=itemView.findViewById(R.id.note);
 
 
@@ -260,4 +273,29 @@ public class notesactivity_not_encrpyt extends AppCompatActivity {
 
     }
 
+    public static String decrypt(String s, int jump)
+    {
+        String result=new String();
+        int l = s.length();
+        jump %= 93;
+        for (int i = 0; i < l; i++)
+        {
+            if (s.charAt(i)>=33&&s.charAt(i)<=126)
+            {
+                int t = s.charAt(i) - jump;
+                if (t < 33)
+                {
+                    t = 33 - t;
+                    t = 126 - t;
+                }
+                result += (char)t;
+            }
+            else
+                result+=s.charAt(i);
+
+        }
+        return result;
+    }
+
 }
+

@@ -52,9 +52,8 @@
         android:layout_marginBottom="30dp"
         android:background="#A1F4FB"
         android:src="@drawable/ic_baseline_edit_24"
-        app:maxImageSize="40dp"
-
-        >
+        app:maxImageSize="50dp"
+        tools:ignore="SpeakableTextPresentCheck">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
