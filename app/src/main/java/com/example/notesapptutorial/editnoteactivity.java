@@ -59,6 +59,10 @@ public class editnoteactivity extends AppCompatActivity {
         int mm=data.getIntExtra("mm",0);
         int yyyy=data.getIntExtra("yyyy",0);
         String content=data.getStringExtra("content");
+        String notetitle=data.getStringExtra("title");
+        String notecontent=decrypt(content,dd+mm+yyyy+content.length());
+        meditcontentofnote.setText(notecontent);
+        medittitleofnote.setText(notetitle);
 
 
 
@@ -66,13 +70,12 @@ public class editnoteactivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getApplicationContext(),"savebuton click",Toast.LENGTH_SHORT).show();
-
-                String newtitle=medittitleofnote.getText().toString();
-                String newcontent=encrypt(meditcontentofnote.getText().toString(),dd+mm+yyyy+meditcontentofnote.getText().toString().length());
                 Calendar calendar=Calendar.getInstance();
                 int dd=calendar.get(Calendar.DATE);
                 int mm=calendar.get(Calendar.MONTH)+1;
                 int yyyy=calendar.get(Calendar.YEAR);
+                String newtitle=medittitleofnote.getText().toString();
+                String newcontent=encrypt(meditcontentofnote.getText().toString(),dd+mm+yyyy+meditcontentofnote.getText().toString().length());
 
 
                 if(newtitle.isEmpty()||newcontent.isEmpty())
@@ -114,13 +117,6 @@ public class editnoteactivity extends AppCompatActivity {
 
             }
         });
-
-
-
-        String notetitle=data.getStringExtra("title");
-        String notecontent=decrypt(content,dd+mm+yyyy+content.length());
-        meditcontentofnote.setText(notecontent);
-        medittitleofnote.setText(notetitle);
     }
 
     public static String decrypt(String s, int jump)

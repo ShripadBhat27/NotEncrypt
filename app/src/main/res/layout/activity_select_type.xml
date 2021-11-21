@@ -128,7 +128,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="0dp"
                 android:fontFamily="@font/autour_one"
-                android:text="Encrypted     Notes"
+                android:text="Encrypted\nNotes"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
